@@ -22,6 +22,8 @@ def test_valid_login():
 
     message = driver.find_element(By.ID, "flash")
     assert "You logged into a secure area!" in message.text
-    input("Test bitti. Chrome'u kapatmak için Enter'a bas...")
+
     driver.quit()
 
+if __name__ == "__main__":
+    test_valid_login()
