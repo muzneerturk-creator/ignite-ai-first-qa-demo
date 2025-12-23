@@ -48,5 +48,3 @@ How This Project Aligns with IgniteTech
 - Practical Selenium usage without unnecessary complexity
 - Focus on production quality, security, and scalability
 
-This project represents how I would approach QA work in an AI-driven engineering team
-like IgniteTech.
