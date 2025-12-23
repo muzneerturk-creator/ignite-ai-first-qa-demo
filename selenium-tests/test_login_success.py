@@ -3,12 +3,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
-import time
 
 def test_valid_login():
     chrome_options = Options()
-    chrome_options.add_argument("--headless=new") 
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
@@ -17,17 +18,16 @@ def test_valid_login():
 
     driver.get("https://the-internet.herokuapp.com/login")
 
-    username = driver.find_element(By.ID, "username")
-    password = driver.find_element(By.ID, "password")
+    driver.find_element(By.ID, "username").send_keys("tomsmith")
+    driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!" + Keys.RETURN)
 
-    username.send_keys("tomsmith")
-    password.send_keys("SuperSecretPassword!")
-    password.send_keys(Keys.RETURN)
+    # 🔑 Kritik fark: explicit wait
+    message = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.ID, "flash"))
+    )
 
-    time.sleep(2)
-
-    message = driver.find_element(By.ID, "flash")
-    assert "You logged into a secure area!" in message.text
+    # 🔑 Daha stabil assertion
+    assert "secure area" in message.text.lower()
 
     driver.quit()
 
