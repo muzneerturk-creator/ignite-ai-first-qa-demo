@@ -1,5 +1,4 @@
-AI-First QA Demo – IgniteTech Application Project
-
+AI-First QA Demo 
 Overview
 This repository demonstrates my approach to Quality Assurance with an AI-first mindset.
 The focus of this project is not on building large automation frameworks, but on showing
